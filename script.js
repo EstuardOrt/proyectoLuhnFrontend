@@ -6,7 +6,7 @@ function validateNumber() {
 
   validateNumberInput(number)
     .then(valid => {
-      result.textContent = valid ? '- Número válido -' : '- Número inválido -';
+      result.textContent = valid ? '- Número válido, felicidades -' : '- Número inválido, que triste -';
       result.style.color = valid ? 'green' : 'red';
     })
     .catch(err => {
