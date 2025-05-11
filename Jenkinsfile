@@ -36,6 +36,8 @@ pipeline {
           )
         ]) {
           sh '''
+            git reset --hard HEAD
+            git clean -fd
             git config user.name "$GIT_USER"
             git config user.email "ci@jenkins.local"
             git remote set-url origin https://$GIT_USER:$GIT_TOKEN@github.com/EstuardOrt/proyectoLuhnFrontend.git
