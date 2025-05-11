@@ -10,6 +10,7 @@ RUN apk add --no-cache gettext
 COPY index.html /usr/share/nginx/html/index.html
 COPY style.css  /usr/share/nginx/html/style.css
 COPY script.js  /usr/share/nginx/html/script.js
+COPY logic.js /usr/share/nginx/html/logic.js
 
 # plantilla de configuración
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
