@@ -9,4 +9,6 @@ COPY script.js /usr/share/nginx/html/script.js
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
 # Reemplaza variables y lanza Nginx
-CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
+# CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
+
+CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/nginx.conf.template && sleep 3600"]
