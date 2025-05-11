@@ -11,8 +11,7 @@ services:
       - .env.prod
     networks:
       - luhn-net-prod
-    depends_on:
-      - backend-prod 
+
 
 networks:
   luhn-net-prod:
