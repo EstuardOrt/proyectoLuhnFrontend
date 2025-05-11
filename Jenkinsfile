@@ -4,6 +4,9 @@ pipeline {
       image 'node:18'
     }
   }
+  options {
+    cleanBeforeCheckout()
+  }
 
   environment {
     NODE_ENV = 'test'
