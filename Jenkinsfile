@@ -4,9 +4,6 @@ pipeline {
       image 'node:18'
     }
   }
-  options {
-    cleanBeforeCheckout()
-  }
 
   environment {
     NODE_ENV = 'test'
@@ -30,6 +27,7 @@ pipeline {
         expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
       }
       steps {
+        cleanWs()
         withCredentials([
           usernamePassword(
             credentialsId: 'github-creds',
