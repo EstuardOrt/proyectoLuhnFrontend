@@ -27,7 +27,7 @@ pipeline {
         expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
       }
       steps {
-        cleanWs()
+        
         withCredentials([
           usernamePassword(
             credentialsId: 'github-creds',
