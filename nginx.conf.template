@@ -1,3 +1,4 @@
+env BACKEND_HOST;
 events {}
 
 http {
@@ -20,7 +21,7 @@ http {
     }
 
     location /validate {
-      proxy_pass http://${BACKEND_HOST}:5000/validate;
+      proxy_pass http://$BACKEND_HOST:5000/validate;
       proxy_http_version 1.1;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
