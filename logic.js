@@ -1,10 +1,9 @@
 // logic.js
 
 /**
- * Envía el número al backend para validar.
- * @param {string} number – Cadena de dígitos a validar.
- * @returns {Promise<boolean>} – `true` si es válido, `false` si no.
- * @throws {Error} – Si la respuesta no es OK o hay un error inesperado.
+ * @param {string} number 
+ * @returns {Promise<boolean>} 
+ * @throws {Error}
  */
 export async function validateNumberInput(number) {
   const response = await fetch('/validate', {
