@@ -1,4 +1,7 @@
-const { validateNumberInput } = require('../logic');
+// __tests__/logic.test.js
+
+import { jest, describe, it, expect, beforeEach } from '@jest/globals';
+import { validateNumberInput } from '../logic.js';
 
 global.fetch = jest.fn();
 
