@@ -27,7 +27,18 @@ pipeline {
         expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
       }
       steps {
-        echo 'Despliegue aprobado'
+        withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+      sh '''
+        git config user.name "$GIT_USER"
+        git config user.email "ci@jenkins.local"
+        git remote set-url origin https://$GIT_USER:$GIT_TOKEN@github.com/EstuardOrt/proyectoLuhnFrontend.git
+        git fetch origin
+        git checkout main
+        git pull origin main
+        git checkout main -- Jenkinsfile
+        git merge --no-ff origin/develop -m "Merge automático tras pruebas exitosas"
+        git push origin main
+      '''
       }
     }
   }
