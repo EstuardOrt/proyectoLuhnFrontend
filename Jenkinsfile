@@ -41,8 +41,8 @@ pipeline {
             git fetch origin
             git checkout main
             git pull origin main
-            git checkout main -- Jenkinsfile
-            git merge --no-ff origin/develop -m "Merge automático tras pruebas exitosas"
+            git checkout origin/main -- Jenkinsfile
+            git merge --no-ff origin/develop -m "Merge automático tras pruebas exitosas" -X ours
             git push origin main
           '''
         }
