@@ -14,6 +14,10 @@ function validateNumber() {
       result.style.color = 'orange';
     });
 }
+
+// Exponer la función al ámbito global para que el onclick en el HTML la encuentre
+window.validateNumber = validateNumber;
+
 //comentario nuevo de prueba 321
 //nuevo cambio
 //otro cambio
