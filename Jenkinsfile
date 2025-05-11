@@ -1,46 +1,46 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'node:18'
+    }
+  }
 
   environment {
-    COMPOSE_INTERACTIVE_NO_CLI = 1
-  }
-
-  triggers {
-    githubPush()
-  }
-
-  options {
-    skipDefaultCheckout(true)
+    NODE_ENV = 'test'
   }
 
   stages {
-    stage('Clonar develop para pruebas') {
+    stage('Instalar dependencias') {
       steps {
-        deleteDir()
-        git branch: 'develop', url: 'https://github.com/usuario/repositorio.git'
+        sh 'npm ci'
       }
     }
 
-    stage('Prueba frontend') {
+    stage('Ejecutar pruebas unitarias') {
       steps {
-        sh '''
-          status=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
-          if [ "$status" -ne 200 ]; then
-            echo "Error al acceder al frontend"
-            exit 1
-          fi
-          echo "Frontend responde con código: $status"
-        '''
+        sh 'npm test'
       }
     }
 
     stage('Confirmar despliegue a producción') {
+      when {
+        expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+      }
       steps {
-        input message: '¿Desplegar el frontend a producción?'
-        deleteDir()
-        git branch: 'main', url: 'https://github.com/usuario/repositorio.git'
-        sh 'docker-compose -f docker-compose.prod.yml up -d --build frontend'
+        withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+      sh '''
+        git config user.name "$GIT_USER"
+        git config user.email "ci@jenkins.local"
+        git remote set-url origin https://$GIT_USER:$GIT_TOKEN@github.com/EstuardOrt/proyectoLuhnFrontend.git
+        git fetch origin
+        git checkout main
+        git pull origin main
+        git checkout main -- Jenkinsfile
+        git merge --no-ff origin/develop -m "Merge automático tras pruebas exitosas"
+        git push origin main
+      '''
       }
     }
   }
+}
 }
