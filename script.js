@@ -14,3 +14,4 @@ function validateNumber() {
       result.style.color = 'orange';
     });
 }
+//comentario
