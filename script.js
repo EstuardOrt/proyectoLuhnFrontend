@@ -14,4 +14,4 @@ function validateNumber() {
       result.style.color = 'orange';
     });
 }
-//comentario
+//comentario nuevo de prueba
